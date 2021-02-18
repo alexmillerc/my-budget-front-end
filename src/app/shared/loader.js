@@ -12,6 +12,6 @@ export default ({ loading }) => (
     justifyContent: 'center',
     alignItems: 'center'
   }}>
-    <CircularProgress color='secondary' size={100} thickness={5} />
+    <CircularProgress color='default' size={100} thickness={5} />
   </div>
 );

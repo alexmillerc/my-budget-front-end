@@ -29,7 +29,7 @@ export default ({ email, name }) => {
         {!!orcamentos &&
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gridGap: '1rem', alignItems: 'baseline' }}>
             {orcamentos.map((orcamento, index) => <div key={index}>
-              <BudgetResume
+              <BudgetResume 
                 key={index}
                 orcamento={index}
                 title={orcamento.title}

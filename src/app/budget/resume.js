@@ -14,7 +14,7 @@ export default ({ orcamento, title, receitas }) => {
   return (
     <Card onClick={() => orcamentoDisplay(orcamento)} style={{ maxWidth: '1200px', margin: '0 auto', cursor: 'pointer' }} className='w-100'>
       <List dense={true} style={{ padding: 0 }}>
-        <ListSubheader>
+        <ListSubheader  style={{ background: '#52616b', color:'#fdfdfe'}}>
           {!!title ? <span>{title}</span> : <span className='i'>Sem título...</span>}
         </ListSubheader>
         <Divider />
@@ -22,7 +22,7 @@ export default ({ orcamento, title, receitas }) => {
           <>
             <ListItem style={{ paddingBottom: 0, paddingTop: 0, textDecoration: 'link' }} key={index}>
               <ListItemText>
-                <Checkbox style={{ padding: '0.25rem' }} checked={receita.done} color='default' disabled={true} />
+                <Checkbox style={{ padding: '0.25rem' }} checked={receita.done} color='#cf7500' disabled={true} />
                 {receita.description}
               </ListItemText>
             </ListItem>

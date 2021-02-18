@@ -23,7 +23,7 @@ export default ({ orcamento, receita, done, description }) => {
   return (
     <>
       <Divider />
-      <ListItem className='flex items-center' style={{ background: done ? '#f1f1f1' : '#ffffff' }}>
+      <ListItem className='flex items-center' style={{ background: '#fdfdfe' }}>
         <Checkbox
           checked={done}
           onChange={(event) => receitaDone(event.target.checked)}
