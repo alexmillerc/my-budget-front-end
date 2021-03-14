@@ -32,15 +32,21 @@ export default ({ email, name }) => {
               <BudgetResume 
                 key={index}
                 orcamento={index}
+                finalizado={orcamento.finalizado}
                 title={orcamento.title}
+                valorPrevisto={orcamento.valorPrevisto}
                 receitas={orcamento.receitas}
+                valorReal={orcamento.valorReal}
               />
-              <Dialog open={index === display} onClose={() => orcamentoDisplay(-1)} fullScreen={fullScreen} fullWidth={true} maxWidth={'md'}>
+              <Dialog open={index === display} onClose={() => orcamentoDisplay(-1)} fullScreen={fullScreen} fullWidth={true} maxWidth={'sm'}>
                 <BudgetOrcamento
                   key={index}
                   orcamento={display}
+                  finalizado={orcamento.finalizado}
                   title={orcamento.title}
+                  valorPrevisto={orcamento.valorPrevisto}
                   receitas={orcamento.receitas}
+                  valorReal={orcamento.valorReal}
                 />
               </Dialog>
             </div>)}

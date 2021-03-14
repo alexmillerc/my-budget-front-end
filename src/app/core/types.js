@@ -21,6 +21,9 @@ export default {
   orcamentoNew: 'orcamentoNew',
   orcamentoDel: 'orcamentoDel',
   orcamentoTitle: 'orcamentoTitle',
+  orcamentoValorPrevisto: 'orcamentoValorPrevisto',
+  orcamentoValorReal: 'orcamentoValorReal',
+  orcamentoFinalizado: 'orcamentoFinalizado',
 
   receitaNew: 'receitaNew',
   receitaDel: 'receitaDel',

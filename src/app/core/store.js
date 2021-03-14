@@ -49,6 +49,12 @@ export default createStore((state = initState, action) => {
       return { ...state, orcamentos: state.orcamentos.filter((_, li) => li !== action.orcamento) };
     case types.orcamentoTitle:
       return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, title: action.title } : orcamento) };
+    case types.orcamentoValorPrevisto:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, valorPrevisto: action.valorPrevisto } : orcamento) };
+    case types.orcamentoValorReal:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, valorReal: action.valorReal } : orcamento) };
+    case types.orcamentoFinalizado:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, finalizado: action.finalizado } : orcamento) };
 
     case types.receitaNew:
       return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, receitas: [...orcamento.receitas, receitaNew] } : orcamento) };

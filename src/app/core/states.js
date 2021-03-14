@@ -12,6 +12,9 @@ export const initState = {
 
 export const orcamentoNew = {
   title: '',
+  valorPrevisto: 0,
+  valorReal: 0,
+  finalizado: false,
   receitas: [],
 };
 
