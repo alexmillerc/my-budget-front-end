@@ -52,6 +52,7 @@ export default ({ email, password, name, login }) => {
             style={{ flexGrow: 1, marginBottom: '1rem' }}
             placeholder='Email...'
             value={email}
+            type="email"
             variant="outlined"
             onChange={(event) => changeEmail(event.target.value)}
           />

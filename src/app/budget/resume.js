@@ -36,7 +36,7 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, receit
             <ListItem style={{ paddingBottom: 0, paddingTop: 0, textDecoration: 'link' }} key={index}>
               <ListItemText>
                 {/*  <Checkbox style={{ padding: '0.25rem' }} checked={receita.done} color='#cf7500' disabled={true} /> */}
-                <span style={{ color: '#cf7500', display: 'inline-block', margin: '0 1em 0 0' }}> RCT:  </span>
+                <span style={{ color: '#cf7500', display: 'inline-block', margin: '0 1em 0 0' }}> RCT: </span>
                 <span style={{ color: '#52616b' }}>{receita.description} </span>
               </ListItemText>
             </ListItem>
