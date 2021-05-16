@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-import { orcamentoNew, receitaNew, initState } from './states';
+import { orcamentoNew, despesaNew, initState } from './states';
 import types from './types';
 
 export default createStore((state = initState, action) => {
@@ -56,15 +56,17 @@ export default createStore((state = initState, action) => {
     case types.orcamentoFinalizado:
       return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, finalizado: action.finalizado } : orcamento) };
 
-    case types.receitaNew:
-      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, receitas: [...orcamento.receitas, receitaNew] } : orcamento) };
-    case types.receitaDel:
-      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, receitas: orcamento.receitas.filter((_, ti) => ti !== action.receita) } : orcamento) };
-    case types.receitaDone:
-      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, receitas: orcamento.receitas.map((receita, ti) => ti === action.receita ? { ...receita, done: action.done } : receita) } : orcamento) };
-    case types.receitaDesc:
-      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, receitas: orcamento.receitas.map((receita, ti) => ti === action.receita ? { ...receita, description: action.description } : receita) } : orcamento) };
-
+    case types.despesaNew:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, despesas: [...orcamento.despesas, despesaNew] } : orcamento) };
+    case types.despesaDel:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, despesas: orcamento.despesas.filter((_, ti) => ti !== action.despesa) } : orcamento) };
+    case types.despesaDone:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, despesas: orcamento.despesas.map((despesa, ti) => ti === action.despesa ? { ...despesa, done: action.done } : despesa) } : orcamento) };
+    case types.despesaDesc:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, despesas: orcamento.despesas.map((despesa, ti) => ti === action.despesa ? { ...despesa, description: action.description } : despesa) } : orcamento) };
+    case types.despesaValorDespesa:
+      return { ...state, orcamentos: state.orcamentos.map((orcamento, li) => li === action.orcamento ? { ...orcamento, despesas: orcamento.despesas.map((despesa, ti) => ti === action.despesa ? { ...despesa, valorDespesa: action.valorDespesa } : despesa) } : orcamento) };
+  
     default:
       return { ...state };
   }

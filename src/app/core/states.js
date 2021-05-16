@@ -15,10 +15,11 @@ export const orcamentoNew = {
   valorPrevisto: 0,
   valorReal: 0,
   finalizado: false,
-  receitas: [],
+  despesas: [],
 };
 
-export const receitaNew = {
+export const despesaNew = {
   description: '',
+  valorDespesa: 0,
   done: false,
 };

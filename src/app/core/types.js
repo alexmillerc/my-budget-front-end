@@ -25,8 +25,9 @@ export default {
   orcamentoValorReal: 'orcamentoValorReal',
   orcamentoFinalizado: 'orcamentoFinalizado',
 
-  receitaNew: 'receitaNew',
-  receitaDel: 'receitaDel',
-  receitaDone: 'receitaDone',
-  receitaDesc: 'receitaDesc'
+  despesaNew: 'despesaNew',
+  despesaDel: 'despesaDel',
+  despesaDone: 'despesaDone',
+  despesaDesc: 'despesaDesc',
+  despesaValorDespesa: 'despesaValorDespesa'
 };

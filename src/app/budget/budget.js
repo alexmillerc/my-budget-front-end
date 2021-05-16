@@ -35,7 +35,7 @@ export default ({ email, name }) => {
                 finalizado={orcamento.finalizado}
                 title={orcamento.title}
                 valorPrevisto={orcamento.valorPrevisto}
-                receitas={orcamento.receitas}
+                despesas={orcamento.despesas}
                 valorReal={orcamento.valorReal}
               />
               <Dialog open={index === display} onClose={() => orcamentoDisplay(-1)} fullScreen={fullScreen} fullWidth={true} maxWidth={'sm'}>
@@ -45,7 +45,7 @@ export default ({ email, name }) => {
                   finalizado={orcamento.finalizado}
                   title={orcamento.title}
                   valorPrevisto={orcamento.valorPrevisto}
-                  receitas={orcamento.receitas}
+                  despesas={orcamento.despesas}
                   valorReal={orcamento.valorReal}
                 />
               </Dialog>

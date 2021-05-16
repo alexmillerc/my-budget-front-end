@@ -4,16 +4,15 @@ import { Button, Card, Checkbox, List, ListSubheader, TextField, Typography, Inp
 import { Add, Delete, Close } from '@material-ui/icons';
 
 import types from '../core/types';
-import BudgetReceita from './receita';
+import BudgetDespesa from './despesa';
 
-export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, receitas }) => {
+export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {
   const dispatch = useDispatch();
 
   const orcamentoTitle = (title) => {
     dispatch({ type: types.orcamentoTitle, orcamento, title });
   };
 
-  console.log(valorPrevisto )
   if (valorPrevisto===0) {
     valorPrevisto = ''
   };
@@ -40,8 +39,8 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, receit
     dispatch({ type: types.orcamentoDisplay, display: -1 });
   };
 
-  const receitaNew = () => {
-    dispatch({ type: types.receitaNew, orcamento });
+  const despesaNew = () => {
+    dispatch({ type: types.despesaNew, orcamento });
   };
 
   const orcamentoDisplay = (display) => {
@@ -61,40 +60,41 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, receit
           />
 
           <TextField
-            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe' }}
+            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
             onChange={(event) => orcamentoTitle(event.target.value)}
             placeholder='Orçamento...'
+            inputProps={{ style: { color: '#52616b'}}}
             variant='outlined'
             value={title}
           />
-          <Button onClick={() => receitaNew()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500' }}><Add /> Receita</Button>
+          <Button onClick={() => despesaNew()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500' }}><Add /> Despesa </Button>
         </ListSubheader>
 
         <ListSubheader className='flex items-center pb2 pt2' >
           <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> PRV: </Typography>
           <TextField
-            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe' }}
+            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
             onChange={(event) => orcamentoValorPrevisto(event.target.value)}
             placeholder='Valor Previsto...'
             InputProps={{
-              startAdornment: <InputAdornment position="start">R$:</InputAdornment>
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>, style: { color: '#52616b' }, inputProps: { min: "0.00", step: "0.01"}
             }}
             type="number"
             variant='outlined'
             value={valorPrevisto}
           />
           
-          <Button onClick={() => orcamentoDel()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500' }}><Delete /> Orçamento</Button>
+          <Button onClick={() => orcamentoDel()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500'}}><Delete /> Orçamento</Button>
         </ListSubheader>
 
         <ListSubheader className='flex items-center pb2 pt2' >
           <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
           <TextField
-            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe' }}
+            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
             onChange={(event) => orcamentoValorReal(event.target.value)}
             placeholder='Saldo...'
             InputProps={{
-              startAdornment: <InputAdornment position="start">R$:</InputAdornment>
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>, style: { color: '#52616b' }, inputProps: { min: "0.00", step: "0.01"}
             }}
             type="number"
             variant='outlined'
@@ -102,14 +102,15 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, receit
           />
           <Button onClick={() => orcamentoDisplay(-1)} style={{ width: '25%', margin: '0 1em 0 0', background: '#cf7500' }}><Close /> Fechar</Button>
         </ListSubheader>
-
-        {receitas && receitas.map((receita, index) =>
-          <BudgetReceita
+       
+        {despesas && despesas.map((despesa, index) =>
+          <BudgetDespesa
             key={index}
             orcamento={orcamento}
-            receita={index}
-            done={receita.done}
-            description={receita.description}
+            despesa={index}
+            done={despesa.done}
+            description={despesa.description}
+            valorDespesa={despesa.valorDespesa}
           />
         )}
       </List>
