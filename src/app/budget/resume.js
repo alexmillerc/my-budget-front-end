@@ -36,10 +36,10 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
             <ListItem style={{ paddingBottom: 0, paddingTop: 0, textDecoration: 'link' }} key={index}>
               <ListItemText>
                 {/*  <Checkbox style={{ padding: '0.25rem' }} checked={despesa.done} color='#cf7500' disabled={true} /> */}
-                {!!despesa.description ?<span style={{ color: '#52616b', textTransform: 'capitalize' }}><b>{despesa.description}</b></span>: <span style={{ color: '#52616b' }}><b>Sem descrição...</b></span>}
+                {!!despesa.description ?<span style={{ color: '#52616b', textTransform: 'capitalize' }}><b>{despesa.description}</b></span>: <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
                 <Divider style={{ background: '#c9d6df' }}/>
 
-                {!!despesa.valorDespesa ? <span style={{ color: '#52616b'}}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#52616b' }}>R$: 00.00</span>}
+                {!!despesa.valorDespesa ? <span style={{ color: '#52616b'}}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
               </ListItemText>
             </ListItem>
           </>
