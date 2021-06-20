@@ -89,8 +89,9 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
 
         <ListSubheader className='flex items-center pb2 pt2' >
           <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
-          <TextField
-            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
+          <TextField 
+            disabled
+            style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#c9d6df', color: '#52616b' }}
             onChange={(event) => orcamentoValorReal(event.target.value)}
             placeholder='Saldo...'
             InputProps={{

@@ -18,9 +18,19 @@ export default ({ email, name }) => {
 
   const { display, orcamentos } = useSelector(s => s);
 
+  console.log(orcamentos)
+
+  function retornaEstado (value){
+    if (value.finalizado === false) 
+    return value;
+}
+  const resultado = orcamentos.filter(retornaEstado);
+  console.log(resultado);
+
   const orcamentoDisplay = (display) => {
     dispatch({ type: types.orcamentoDisplay, display });
   };
+
 
   return (
     <>
@@ -28,7 +38,7 @@ export default ({ email, name }) => {
       <div className='pa4' style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {!!orcamentos &&
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gridGap: '1rem', alignItems: 'baseline' }}>
-            {orcamentos.map((orcamento, index) => <div key={index}>
+            {resultado.map((orcamento, index) => <div key={index}>
               <BudgetResume 
                 key={index}
                 orcamento={index}
