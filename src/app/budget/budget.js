@@ -7,6 +7,7 @@ import BudgetOrcamento from './orcamento';
 import BudgetResume from './resume';
 import { getUserData } from '../core/actions';
 import types from '../core/types';
+import orcamento from './orcamento';
 
 export default ({ email, name }) => {
   const dispatch = useDispatch();
@@ -18,28 +19,18 @@ export default ({ email, name }) => {
 
   const { display, orcamentos } = useSelector(s => s);
 
-  console.log(orcamentos)
-
-  function retornaEstado (value){
-    if (value.finalizado === false) 
-    return value;
-}
-  const resultado = orcamentos.filter(retornaEstado);
-  console.log(resultado);
-
   const orcamentoDisplay = (display) => {
     dispatch({ type: types.orcamentoDisplay, display });
   };
-
-
+  
   return (
     <>
       <Nav email={email} name={name} orcamentos={orcamentos} />
       <div className='pa4' style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {!!orcamentos &&
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gridGap: '1rem', alignItems: 'baseline' }}>
-            {resultado.map((orcamento, index) => <div key={index}>
-              <BudgetResume 
+           {orcamentos.map((orcamento, index) => <div key={index}>
+              <BudgetResume
                 key={index}
                 orcamento={index}
                 finalizado={orcamento.finalizado}
