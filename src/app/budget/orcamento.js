@@ -1,14 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Card, Checkbox, List, ListSubheader, TextField, Typography, InputAdornment } from '@material-ui/core';
-import { Add, Remove, Delete, Close } from '@material-ui/icons';
+import { Button, Card, Checkbox, List, ListSubheader, TextField, Typography, InputAdornment, Tooltip } from '@material-ui/core';
+import { Money, Delete, Close } from '@material-ui/icons';
 
 import types from '../core/types';
 import BudgetDespesa from './despesa';
 
-var tipoValor = false
-
-export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {  
+export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {
   const dispatch = useDispatch();
 
   const orcamentoTitle = (title) => {
@@ -18,7 +16,6 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
   if (valorPrevisto === 0) {
     valorPrevisto = ''
   };
-
 
   const orcamentoValorPrevisto = (valorPrevisto) => {
     dispatch({ type: types.orcamentoValorPrevisto, orcamento, valorPrevisto });
@@ -44,29 +41,14 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
     dispatch({ type: types.orcamentoDisplay, display: -1 });
   };
 
-  const despesaNew = () => {
+  const despesaRecursoNew = () => {
 
-    /* válida se existe valor previsto preenchido */
-    if (valorPrevisto == 0 || valorPrevisto == '') {
+    /* válida se o titulo esta preenchido e se existe valor previsto */
+    if (title == '') {
+      dispatch({ type: types.alertShow, alert: `Titulo em branco, favor preencher!` });
+    } else if (valorPrevisto == 0 || valorPrevisto == '') {
       dispatch({ type: types.alertShow, alert: `Valor Previsto zerado, favor preencher!` });
     } else {
-      tipoValor = false 
-      console.log("despesa")
-      console.log(tipoValor)
-      dispatch({ type: types.despesaNew, orcamento });
-    }
-
-  };
-
-  const recursoNew = () => {
-
-    /* válida se existe valor previsto preenchido */
-    if (valorPrevisto == 0 || valorPrevisto == '') {
-      dispatch({ type: types.alertShow, alert: `Valor Previsto zerado, favor preencher!` });
-    } else {
-      tipoValor = true 
-      console.log("recurso")
-      console.log(tipoValor)
       dispatch({ type: types.despesaNew, orcamento });
     }
 
@@ -82,12 +64,14 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
       <Card className='w-100' style={{ overflowY: 'auto' }}>
         <List style={{ background: '#52616b', padding: 0 }}>
           <ListSubheader className='flex items-center pb2 pt2' >
-            <Checkbox
-              style={{ margin: '0 0.2em 0 0', color: '#fdfdfe' }}
-              checked={finalizado}
-              onChange={(event) => orcamentoFinalizado(event.target.checked)}
-              color='defaut'
-            />
+            <Tooltip title="Finalizar Orçamento">
+              <Checkbox
+                style={{ margin: '0 0.2em 0 0', color: '#fdfdfe' }}
+                checked={finalizado}
+                onChange={(event) => orcamentoFinalizado(event.target.checked)}
+                color='defaut'
+              />
+            </Tooltip>
 
             <TextField
               style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
@@ -97,12 +81,15 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
               variant='outlined'
               value={title}
             />
-            { /*  <Button onClick={() => recursoNew()} style={{ width: '12,5%', margin: '0 1em 0 0', background: '#f0a500' }}><Add /> Recurso </Button>  */ }
-            <Button onClick={() => despesaNew()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500' }}><Remove /> Despesa </Button> 
+            <Tooltip title="Adicionar valores">
+              <Button onClick={() => despesaRecursoNew()} style={{ width: '10%', margin: '0 1em 0 0', background: '#f0a500' }}><Money /></Button>
+            </Tooltip>
           </ListSubheader>
 
           <ListSubheader className='flex items-center pb2 pt2' >
-            <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> PRV: </Typography>
+            <Tooltip title="Valor Previsto">
+              <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> PRV: </Typography>
+            </Tooltip>
             <TextField
               style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#fdfdfe', color: '#52616b' }}
               onChange={(event) => (orcamentoValorPrevisto(event.target.value), orcamentoValorReal(event.target.value))}
@@ -115,11 +102,15 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
               value={valorPrevisto}
             />
 
-            <Button onClick={() => orcamentoDel()} style={{ width: '25%', margin: '0 1em 0 0', background: '#f0a500' }}><Delete /> Orçamento</Button>
+            <Tooltip title="Excluir Orçamento">
+              <Button onClick={() => orcamentoDel()} style={{ width: '10%', margin: '0 1em 0 0', background: '#f0a500' }}><Delete /></Button>
+            </Tooltip>
           </ListSubheader>
 
           <ListSubheader className='flex items-center pb2 pt2' >
-            <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
+            <Tooltip title="Saldo">
+              <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
+            </Tooltip>
             <TextField
               disabled
               style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#c9d6df', color: '#52616b' }}
@@ -132,7 +123,9 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
               variant='outlined'
               value={valorReal}
             />
-            <Button onClick={() => orcamentoDisplay(-1)} style={{ width: '25%', margin: '0 1em 0 0', background: '#cf7500' }}><Close /> Fechar</Button>
+            <Tooltip title="Fechar">
+              <Button onClick={() => orcamentoDisplay(-1)} style={{ width: '10%', margin: '0 1em 0 0', background: '#cf7500' }}><Close /></Button>
+            </Tooltip>
           </ListSubheader>
 
           {despesas && despesas.map((despesa, index) =>
@@ -146,7 +139,6 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
               finalizado={finalizado}
               valorPrevisto={valorPrevisto}
               valorReal={valorReal}
-              tipoValor={tipoValor}
             />
           )}
         </List>
@@ -157,13 +149,14 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
     <Card className='w-100' style={{ overflowY: 'auto' }}>
       <List style={{ background: '#52616b', padding: 0 }}>
         <ListSubheader className='flex items-center pb2 pt2' >
-          <Checkbox
-            style={{ margin: '0 0.2em 0 0', color: '#fdfdfe' }}
-            checked={finalizado}
-            onChange={(event) => orcamentoFinalizado(event.target.checked)}
-            color='defaut'
-          />
-
+          <Tooltip title="Abrir Orçamento">
+            <Checkbox
+              style={{ margin: '0 0.2em 0 0', color: '#fdfdfe' }}
+              checked={finalizado}
+              onChange={(event) => orcamentoFinalizado(event.target.checked)}
+              color='defaut'
+            />
+          </Tooltip>
           <TextField
             disabled
             style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#c9d6df', color: '#52616b' }}
@@ -176,7 +169,9 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
         </ListSubheader>
 
         <ListSubheader className='flex items-center pb2 pt2' >
-          <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> PRV: </Typography>
+          <Tooltip title="Valor Previsto">
+            <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> PRV: </Typography>
+          </Tooltip>
           <TextField
             disabled
             style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#c9d6df', color: '#52616b' }}
@@ -192,7 +187,9 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
         </ListSubheader>
 
         <ListSubheader className='flex items-center pb2 pt2' >
-          <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
+          <Tooltip title="Saldo">
+            <Typography variant='button' display="inline" style={{ margin: '0 1em 0 0', color: '#fdfdfe' }}> SLD: </Typography>
+          </Tooltip>
           <TextField
             disabled
             style={{ flexGrow: 1, borderRadius: '4px', margin: '0 1em 0 0', background: '#c9d6df', color: '#52616b' }}

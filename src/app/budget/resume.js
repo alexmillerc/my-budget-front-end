@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Card, List, ListSubheader, Divider, ListItem, ListItemText, Checkbox, Typography } from '@material-ui/core';
 
 import types from '../core/types';
+import despesa from './despesa';
 
 export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {
   const dispatch = useDispatch();
@@ -36,14 +37,32 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
           {despesas.map((despesa, index) =>
             <>
               <ListItem style={{ paddingBottom: 0, paddingTop: 0, textDecoration: 'link' }} key={index}>
-                <ListItemText>
+                
                   {/*  <Checkbox style={{ padding: '0.25rem' }} checked={despesa.done} color='#cf7500' disabled={true} /> */}
-                  <span>&nbsp;</span>
-                  {!!despesa.description ? <span style={{ color: '#52616b', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
-                  <Divider style={{ background: '#c9d6df' }} />
 
-                  {!!despesa.valorDespesa ? <span style={{ color: '#52616b' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
-                </ListItemText>
+                  {(() => {
+                    if (despesa.done == false) {
+                      return (
+                        <ListItemText>
+                          {!!despesa.description ? <span style={{ color: '#d2691e', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
+                          <Divider style={{ backgroundColor: '#52616b' }} />
+                          {!!despesa.valorDespesa ? <span style={{ color: '#d2691e' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
+                        </ListItemText>
+
+                      )
+                    } else {
+                      return (
+                        <ListItemText>
+                          {!!despesa.description ? <span style={{ color: '#52616b', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
+                          <Divider style={{ backgroundColor: '#52616b' }} />
+                          {!!despesa.valorDespesa ? <span style={{ color: '#52616b' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
+                        </ListItemText>
+
+                      )
+                    }
+                  })()}
+
+                 
               </ListItem>
             </>
           )}
