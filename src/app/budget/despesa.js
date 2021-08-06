@@ -16,6 +16,15 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
     console.log('valor done dispatch');
     console.log(done);
     dispatch({ type: types.despesaDone, orcamento, despesa, done });
+
+    /* verifica se o valor é orçamento/recurso */
+    if (done === false) {
+      valorReal = Number(valorReal) - (Number(valorDespesa) * 2);
+    } else {
+      valorReal = Number(valorReal) + (Number(valorDespesa) * 2);
+    }
+
+    dispatch({ type: types.orcamentoValorReal, orcamento, valorReal });
   };
 
   const despesaDel = () => {
@@ -27,34 +36,40 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
   };
 
   if (valorDespesa === 0) {
-    valorDespesa = ''
+    valorDespesa = '';
   };
 
   const despesaValorDespesa = (valorDespesa) => {
-    dispatch({ type: types.despesaDone, orcamento, despesa, done })
+    dispatch({ type: types.despesaDone, orcamento, despesa, done });
     dispatch({ type: types.despesaValorDespesa, orcamento, despesa, valorDespesa });
   };
 
   const setDespesa = () => {
 
-    /* verifica qual o index do orçamento */
-    if (indexOrcamento != orcamento) {
-      indexOrcamento = orcamento
-      salvaDespesa = 0
+    /* Inicializa primeira despesa/recurso */
+    if (despesa == 0) {
+      indexDespesa = 0;
+      salvaDespesa = 0;
+    }
 
-      /* verifica se campo já tem despesa */
+    /* verifica qual o index do orçamento/recurso */
+    if (indexOrcamento != orcamento) {
+      indexOrcamento = orcamento;
+      salvaDespesa = 0;
+
+      /* verifica se campo já tem despesa/recurso */
       if (valorDespesa != 0) {
-        salvaDespesa = valorDespesa
+        salvaDespesa = valorDespesa;
       }
 
-      /* verifica qual o index da despesa */
+      /* verifica qual o index da despesa/recurso */
     } else if (indexDespesa != despesa) {
-      indexDespesa = despesa
-      salvaDespesa = 0
+      indexDespesa = despesa;
+      salvaDespesa = 0;
 
-      /* verifica se campo já tem despesa */
+      /* verifica se campo já tem despesa/recurso */
       if (valorDespesa != 0) {
-        salvaDespesa = valorDespesa
+        salvaDespesa = valorDespesa;
       }
     }
   }
@@ -63,54 +78,83 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
 
     /* verifica se os campos valorReal e valorDespesa tem valor válido */
     if (valorReal == '') {
-      valorReal = 0
+      valorReal = 0;
     }
     if (valorDespesa == '') {
-      valorDespesa = 0
+      valorDespesa = 0;
     }
 
-    /* verifica se o valor da despesa mudou */
-    if (salvaDespesa != valorDespesa && salvaDespesa != 0) {
-      console.log("if")
-      console.log(valorReal)
-      let novaDespesa = Number(valorDespesa) - Number(salvaDespesa)
-      valorReal = Number(valorReal) - Number(novaDespesa)
+    if (done === false) {
+      /* verifica se o valor da despesa mudou */
+      if (salvaDespesa != valorDespesa && salvaDespesa != 0) {
+        console.log("if")
+        console.log(valorReal)
+        let novaDespesa = Number(valorDespesa) - Number(salvaDespesa);
+        valorReal = Number(valorReal) - Number(novaDespesa);
 
-      console.log(valorDespesa)
-      console.log(salvaDespesa)
-      console.log(novaDespesa)
-      console.log(valorReal)
+        console.log(valorDespesa)
+        console.log(salvaDespesa)
+        console.log(novaDespesa)
+        console.log(valorReal)
 
-      /* calcula despesa pela primeira vez */
+        /* calcula despesa pela primeira vez */
+      } else {
+        valorReal = Number(valorReal) - Number(valorDespesa);
+        console.log("else")
+        console.log(valorDespesa)
+        console.log(valorReal)
+      }
+
     } else {
-      valorReal = Number(valorReal) - Number(valorDespesa)
-      console.log("else")
-      console.log(valorDespesa)
-      console.log(valorReal)
+      /* verifica se o valor do recurso mudou */
+      if (salvaDespesa != valorDespesa && salvaDespesa != 0) {
+        console.log("if")
+        console.log(valorReal)
+        let novaDespesa = Number(valorDespesa) - Number(salvaDespesa);
+        valorReal = Number(valorReal) + Number(novaDespesa);
+
+        console.log(valorDespesa)
+        console.log(salvaDespesa)
+        console.log(novaDespesa)
+        console.log(valorReal)
+
+        /* calcula recurso pela primeira vez */
+      } else {
+        valorReal = Number(valorReal) + Number(valorDespesa);
+        console.log("else")
+        console.log(valorDespesa)
+        console.log(valorReal)
+      }
     }
 
-    /* salva despesa atual na memoria */
-    salvaDespesa = valorDespesa
+    /* salva despesa/recurso atual na memoria */
+    salvaDespesa = valorDespesa;
 
     dispatch({ type: types.orcamentoValorReal, orcamento, valorReal });
   };
 
-
   const orcamentoValorRealDel = () => {
 
     if (indexDespesa != despesa) {
-      indexDespesa = despesa
-      salvaDespesa = 0
+      indexDespesa = despesa;
+      salvaDespesa = 0;
 
-      /* verifica se campo já tem despesa */
+
+      /* verifica se campo já tem despesa/recurso */
       if (valorDespesa != 0) {
-        salvaDespesa = valorDespesa
+        salvaDespesa = valorDespesa;
       }
     }
 
-    /* deleta despesa e adiciona o valor ao saldo */
-    valorReal = Number(valorReal) + Number(valorDespesa)
-    salvaDespesa = 0
+    if (done === false) {
+      /* deleta despesa e adiciona o valor ao saldo */
+      valorReal = Number(valorReal) + Number(valorDespesa);
+      /*salvaDespesa = 0 */
+    } else {
+      /* deleta recurso e adiciona o valor ao saldo */
+      valorReal = Number(valorReal) - Number(valorDespesa);
+      /*salvaDespesa = 0 */
+    }
 
     dispatch({ type: types.orcamentoValorReal, orcamento, valorReal });
   };
@@ -156,7 +200,6 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
             placeholder='Descrição...'
             inputProps={{ style: { color: '#52616b' } }}
             value={description}
-            onFocus={() => (setDespesa())}
             onChange={(event) => despesaDesc(event.target.value)}
           />
           <span>&nbsp;&nbsp;&nbsp;</span>
