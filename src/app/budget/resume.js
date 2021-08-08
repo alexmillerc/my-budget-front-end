@@ -7,8 +7,6 @@ import types from '../core/types';
 export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {
   const dispatch = useDispatch();
 
-  var dataT = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2)
-
   const orcamentoDisplay = (display) => {
     dispatch({ type: types.orcamentoDisplay, display });
   };
@@ -87,13 +85,6 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
           <Divider />
           <Typography variant='button' display="inline" style={{ color: '#c9d6df', display: 'inline-block', margin: '0 1em 0 0' }}> SLD: </Typography>
           {!!valorReal ? <span>R$: {valorReal}</span> : <span className='i'>Sem saldo...</span>}
-
-          <Divider />
-          <Typography variant='button' display="inline" style={{ color: '#c9d6df', display: 'inline-block', margin: '0 1em 0 0' }}> DTS: </Typography>
-          <span>INI: {dataT}</span> <span>FIN: {dataT}</span>
-
-
-          
 
         </ListSubheader>
 
