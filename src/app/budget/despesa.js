@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Divider, TextField, Typography, ListSubheader, InputAdornment, Switch, Tooltip } from '@material-ui/core';
+import { Button, Divider, TextField, ListSubheader, InputAdornment, Switch, Tooltip } from '@material-ui/core';
 import { Delete, Remove, Add } from '@material-ui/icons';
 
 import types from '../core/types';
@@ -9,12 +9,10 @@ var salvaDespesa = 0;
 var indexDespesa = 0;
 var indexOrcamento = 0;
 
-export default ({ orcamento, despesa, description, valorDespesa, finalizado, valorPrevisto, valorReal, done }) => {
+export default ({ orcamento, despesa, description, valorDespesa, finalizado, valorReal, done }) => {
   const dispatch = useDispatch();
 
   const despesaRecurso = (done) => {
-    console.log('valor done dispatch');
-    console.log(done);
     dispatch({ type: types.despesaDone, orcamento, despesa, done });
 
     /* verifica se o valor é orçamento/recurso */
@@ -47,28 +45,28 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
   const setDespesa = () => {
 
     /* Inicializa primeira despesa/recurso */
-    if (despesa == 0) {
+    if (despesa === 0) {
       indexDespesa = 0;
       salvaDespesa = 0;
     }
 
     /* verifica qual o index do orçamento/recurso */
-    if (indexOrcamento != orcamento) {
+    if (indexOrcamento !== orcamento) {
       indexOrcamento = orcamento;
       salvaDespesa = 0;
 
       /* verifica se campo já tem despesa/recurso */
-      if (valorDespesa != 0) {
+      if (valorDespesa !== 0) {
         salvaDespesa = valorDespesa;
       }
 
       /* verifica qual o index da despesa/recurso */
-    } else if (indexDespesa != despesa) {
+    } else if (indexDespesa !== despesa) {
       indexDespesa = despesa;
       salvaDespesa = 0;
 
       /* verifica se campo já tem despesa/recurso */
-      if (valorDespesa != 0) {
+      if (valorDespesa !== 0) {
         salvaDespesa = valorDespesa;
       }
     }
@@ -77,53 +75,33 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
   const orcamentoValorReal = (valorDespesa) => {
 
     /* verifica se os campos valorReal e valorDespesa tem valor válido */
-    if (valorReal == '') {
+    if (valorReal === '') {
       valorReal = 0;
     }
-    if (valorDespesa == '') {
+    if (valorDespesa === '') {
       valorDespesa = 0;
     }
 
     if (done === false) {
       /* verifica se o valor da despesa mudou */
-      if (salvaDespesa != valorDespesa && salvaDespesa != 0) {
-        console.log("if")
-        console.log(valorReal)
+      if (salvaDespesa !== valorDespesa && salvaDespesa !== 0) {   
         let novaDespesa = Number(valorDespesa) - Number(salvaDespesa);
         valorReal = Number(valorReal) - Number(novaDespesa);
-
-        console.log(valorDespesa)
-        console.log(salvaDespesa)
-        console.log(novaDespesa)
-        console.log(valorReal)
 
         /* calcula despesa pela primeira vez */
       } else {
         valorReal = Number(valorReal) - Number(valorDespesa);
-        console.log("else")
-        console.log(valorDespesa)
-        console.log(valorReal)
       }
 
     } else {
       /* verifica se o valor do recurso mudou */
-      if (salvaDespesa != valorDespesa && salvaDespesa != 0) {
-        console.log("if")
-        console.log(valorReal)
+      if (salvaDespesa !== valorDespesa && salvaDespesa !== 0) {
         let novaDespesa = Number(valorDespesa) - Number(salvaDespesa);
         valorReal = Number(valorReal) + Number(novaDespesa);
-
-        console.log(valorDespesa)
-        console.log(salvaDespesa)
-        console.log(novaDespesa)
-        console.log(valorReal)
 
         /* calcula recurso pela primeira vez */
       } else {
         valorReal = Number(valorReal) + Number(valorDespesa);
-        console.log("else")
-        console.log(valorDespesa)
-        console.log(valorReal)
       }
     }
 
@@ -135,13 +113,13 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
 
   const orcamentoValorRealDel = () => {
 
-    if (indexDespesa != despesa) {
+    if (indexDespesa !== despesa) {
       indexDespesa = despesa;
       salvaDespesa = 0;
 
 
       /* verifica se campo já tem despesa/recurso */
-      if (valorDespesa != 0) {
+      if (valorDespesa !== 0) {
         salvaDespesa = valorDespesa;
       }
     }
@@ -177,10 +155,10 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
           </Tooltip>
 
           {(() => {
-            if (done == false) {
+            if (done === false) {
               return (
                 <Tooltip title="Despesa">
-                  <Remove style={{ color: '#d2691e' }} />
+                  <Remove style={{ color: '#cf7500' }} />
                 </Tooltip>
               )
             } else {
@@ -233,10 +211,10 @@ export default ({ orcamento, despesa, description, valorDespesa, finalizado, val
         <ListSubheader className='flex items-center pb2 pt2' style={{ background: '#fdfdfe' }}>
 
           {(() => {
-            if (done == false) {
+            if (done === false) {
               return (
                 <Tooltip title="Despesa">
-                  <Remove style={{ color: '#d2691e' }} />
+                  <Remove style={{ color: '#cf7500' }} />
                 </Tooltip>
               )
             } else {

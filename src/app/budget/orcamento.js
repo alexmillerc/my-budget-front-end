@@ -44,9 +44,9 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
   const despesaRecursoNew = () => {
 
     /* válida se o titulo esta preenchido e se existe valor previsto */
-    if (title == '') {
+    if (title === '') {
       dispatch({ type: types.alertShow, alert: `Titulo em branco, favor preencher!` });
-    } else if (valorPrevisto == 0 || valorPrevisto == '') {
+    } else if (valorPrevisto === 0 || valorPrevisto === '') {
       dispatch({ type: types.alertShow, alert: `Valor Previsto zerado, favor preencher!` });
     } else {
       dispatch({ type: types.despesaNew, orcamento });
@@ -81,6 +81,7 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
               variant='outlined'
               value={title}
             />
+
             <Tooltip title="Adicionar valores">
               <Button onClick={() => despesaRecursoNew()} style={{ width: '10%', margin: '0 1em 0 0', background: '#f0a500' }}><Money /></Button>
             </Tooltip>

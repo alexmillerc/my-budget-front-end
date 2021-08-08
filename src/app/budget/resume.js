@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Card, List, ListSubheader, Divider, ListItem, ListItemText, Checkbox, Typography } from '@material-ui/core';
 
 import types from '../core/types';
-import despesa from './despesa';
 
 export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despesas }) => {
   const dispatch = useDispatch();
 
+  var dataT = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2)
 
   const orcamentoDisplay = (display) => {
     dispatch({ type: types.orcamentoDisplay, display });
@@ -41,12 +41,12 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
                   {/*  <Checkbox style={{ padding: '0.25rem' }} checked={despesa.done} color='#cf7500' disabled={true} /> */}
 
                   {(() => {
-                    if (despesa.done == false) {
+                    if (despesa.done === false) {
                       return (
                         <ListItemText>
-                          {!!despesa.description ? <span style={{ color: '#d2691e', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
-                          <Divider style={{ backgroundColor: '#52616b' }} />
-                          {!!despesa.valorDespesa ? <span style={{ color: '#d2691e' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
+                          {!!despesa.description ? <span style={{ color: '#cf7500', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
+                          <Divider style={{ backgroundColor: '#c9d6df' }} />
+                          {!!despesa.valorDespesa ? <span style={{ color: '#cf7500' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
                         </ListItemText>
 
                       )
@@ -54,7 +54,7 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
                       return (
                         <ListItemText>
                           {!!despesa.description ? <span style={{ color: '#52616b', textTransform: 'capitalize' }}><b>{despesa.description}</b></span> : <span className='i' style={{ color: '#c9d6df' }}><b>Sem descrição</b></span>}
-                          <Divider style={{ backgroundColor: '#52616b' }} />
+                          <Divider style={{ backgroundColor: '#c9d6df' }} />
                           {!!despesa.valorDespesa ? <span style={{ color: '#52616b' }}>R$: {despesa.valorDespesa}</span> : <span className='i' style={{ color: '#c9d6df' }}>R$:</span>}
                         </ListItemText>
 
@@ -87,6 +87,13 @@ export default ({ orcamento, title, valorPrevisto, valorReal, finalizado, despes
           <Divider />
           <Typography variant='button' display="inline" style={{ color: '#c9d6df', display: 'inline-block', margin: '0 1em 0 0' }}> SLD: </Typography>
           {!!valorReal ? <span>R$: {valorReal}</span> : <span className='i'>Sem saldo...</span>}
+
+          <Divider />
+          <Typography variant='button' display="inline" style={{ color: '#c9d6df', display: 'inline-block', margin: '0 1em 0 0' }}> DTS: </Typography>
+          <span>INI: {dataT}</span> <span>FIN: {dataT}</span>
+
+
+          
 
         </ListSubheader>
 

@@ -15,4 +15,4 @@ REACT_APP_API=http://localhost:9000
 * ***NPM START***
 
   - Local:            http://localhost:5000      │
-  - On Your Network:  http://192.168.56.1:5000 
+  - On Your Network:  https://my-budget-front-end.herokuapp.com

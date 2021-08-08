@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { Add, Save, ArrowBack, DockOutlined, Tablet, TableChart } from '@material-ui/icons';
+import { Save, ArrowBack, TableChart } from '@material-ui/icons';
 import { AppBar, Toolbar, Typography, Tooltip } from '@material-ui/core';
 
 import types from '../core/types';
